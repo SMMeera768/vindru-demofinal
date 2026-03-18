@@ -1,0 +1,164 @@
+/* ================================
+   MOBILE HERO FIXES - REFERENCE STYLE
+================================ */
+
+@media (max-width: 768px) {
+  
+  /* HERO CONTAINER */
+  .hero-carousel {
+    height: calc(100vh - var(--nav-height));
+    overflow: hidden;
+  }
+
+  /* HERO SLIDES */
+  .hero-slide,
+  .slide-leanoms {
+    height: calc(100vh - var(--nav-height));
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* BACKGROUND IMAGE - MOBILE VERTICAL FIT */
+  .slide-leanoms::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: 50% auto !important;
+    background-position: center 20% !important;
+    background-repeat: no-repeat !important;
+    background-color: #050a14;
+    z-index: 1;
+  }
+
+  /* Mobile-specific images */
+  .slide-leanoms[style*="vindru-hero-1.png"]::after {
+    background-image: url('vindru-hero-1-mobile.png') !important;
+  }
+
+  .slide-leanoms[style*="vindru-hero-2.png"]::after {
+    background-image: url('vindru-hero-2-mobile.png') !important;
+  }
+
+  .slide-leanoms[style*="vindru-hero-3.png"]::after {
+    background-image: url('vindru-hero-3-mobile.png') !important;
+  }
+
+  .slide-leanoms[style*="vindru-hero-4.png"]::after {
+    background-image: url('vindru-hero-4.png') !important;
+  }
+
+  .slide-leanoms[style*="vindru-hero-5.png"]::after {
+    background-image: url('vindru-hero-5-mobile.png') !important;
+  }
+
+  /* OVERLAY - STRONG GRADIENT */
+  .slide-leanoms::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,0.7) 0%,
+      rgba(0,0,0,0.5) 50%,
+      rgba(0,0,0,0.8) 100%
+    );
+    z-index: 2;
+  }
+
+  /* TEXT CONTAINER - BOTTOM ALIGNED */
+  .leanoms-wrap {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 24px 60px;
+    max-width: 100%;
+  }
+
+  .leanoms-text {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* TEXT STYLING - BIGGER & BOLDER */
+  .leanoms-title {
+    font-size: 38px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-weight: 800;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.9);
+  }
+
+  .leanoms-desc {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 28px;
+    color: #e2e8f0;
+    max-width: 95%;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .leanoms-eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #f97316;
+    font-weight: 700;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .leanoms-btn {
+    padding: 15px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(249,115,22,0.5);
+  }
+
+  /* ARROWS POSITIONING */
+  .hero-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    z-index: 9999;
+  }
+
+  .hero-arrow.left { 
+    left: 16px; 
+  }
+  
+  .hero-arrow.right { 
+    right: 16px; 
+  }
+}
+
+/* EXTRA SMALL MOBILE */
+@media (max-width: 480px) {
+  
+  .leanoms-wrap {
+    padding: 0 20px;
+  }
+
+  .leanoms-title {
+    font-size: 32px;
+  }
+
+  .leanoms-desc {
+    font-size: 14px;
+    -webkit-line-clamp: 3;
+  }
+
+  .hero-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+

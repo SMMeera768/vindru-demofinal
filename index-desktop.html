@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VINDRU | Industrial Drilling Solutions</title>
+  <link rel="icon" href="Vindru-LOGO-New.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    .slider-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      width: 500vw;
+      height: 100vh;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.6);
+    }
+
+    .slide-1 .slide-bg { background-image: url('vindru-hero-1.png'); }
+    .slide-2 .slide-bg { background-image: url('heroSlider2.png'); }
+    .slide-3 .slide-bg { background-image: url('heroSlide3.png'); }
+    .slide-4 .slide-bg { background-image: url('vindru-hero-4.png'); }
+    .slide-5 .slide-bg { background-image: url('vindru-hero-5.png'); }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,22,40,0.7), rgba(26,47,74,0.6));
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 1000px;
+      padding: 0 60px;
+      animation: fadeIn 1s ease;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      padding: 10px 28px;
+      background: rgba(249,115,22,0.15);
+      border: 2px solid #f97316;
+      border-radius: 50px;
+      color: #f97316;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 32px;
+      text-transform: uppercase;
+    }
+
+    .slide-title {
+      font-size: 80px;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 28px;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+    }
+
+    .slide-title .orange {
+      color: #f97316;
+    }
+
+    .slide-desc {
+      font-size: 22px;
+      color: #e2e8f0;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      max-width: 850px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .slide-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 48px;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: white;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 15px 40px rgba(249,115,22,0.5);
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .slide-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .slide-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(249,115,22,0.7);
+    }
+
+    .btn-icon {
+      font-size: 20px;
+      transition: transform 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-btn:hover .btn-icon {
+      transform: translateX(5px);
+    }
+
+    .slide-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      width: 70px;
+      height: 70px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: white;
+      font-size: 28px;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(249,115,22,0.9);
+      border-color: #f97316;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-arrow.left {
+      left: 50px;
+    }
+
+    .nav-arrow.right {
+      right: 50px;
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      z-index: 101;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f97316, #fb923c);
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 20px rgba(249,115,22,0.8);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 50px;
+      right: 60px;
+      z-index: 100;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .slide-counter span {
+      color: #f97316;
+    }
+
+    .slide-indicators {
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .indicator {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.4s;
+      border: 2px solid transparent;
+    }
+
+    .indicator:hover {
+      background: rgba(255,255,255,0.6);
+      transform: scale(1.2);
+    }
+
+    .indicator.active {
+      width: 60px;
+      background: #f97316;
+      border-radius: 9px;
+      border-color: rgba(249,115,22,0.3);
+      box-shadow: 0 4px 20px rgba(249,115,22,0.6);
+    }
+
+    .prd-logo {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      z-index: 100;
+      width: 100px;
+      opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slider-container">
+  <!-- Progress Bar -->
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Slide Counter -->
+  <div class="slide-counter">
+    <span id="currentSlideNum">1</span> / 5
+  </div>
+
+  <div class="slides" id="slides">
+    
+    <!-- Slide 1: Drill Rigs -->
+    <div class="slide slide-1">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="slide-badge">PRD Authorized Distributor & Reseller</div>
+        <h1 class="slide-title"><span class="orange">Industry-Proven</span> Drilling Rigs</h1>
+        <p class="slide-desc">
+          VINDRU is an Authorized Distributor & Reseller of PRD Drilling Rigs. Built for exploration, mining, geotechnical, and water well drilling — across demanding ground conditions. Beyond supply, we deliver assurance.
+        </p>
+        <button class="slide-btn" onclick="nextSlide()">
+          <span>Next</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+      <!-- PRD Logo (only on slide 1) -->
+      <img src="prd-logo.png" alt="PRD" class="prd-logo">
+    </div>
+
+    <!-- Slide 2: Drill Tools -->
+    <div class="slide slide-2">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <h1 class="slide-title">Drill Tools & Components</h1>
+        <p class="slide-desc">
+          Complete range of drilling bits, hammers, rods, and accessories engineered for reliable penetration, stable hole quality, smooth drilling operations, and consistent core recovery across varying ground conditions.
+        </p>
+        <button class="slide-btn" onclick="nextSlide()">
+          <span>Next</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide 3: Engines & Pumps -->
+    <div class="slide slide-3">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <h1 class="slide-title">Engines, Pumps & Compressors</h1>
+        <p class="slide-desc">
+          Range of air compressors, booster systems, industrial engines and water pumps designed to support drilling operations across exploration, geotechnical, mining, water well, and construction projects.
+        </p>
+        <button class="slide-btn" onclick="nextSlide()">
+          <span>Next</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide 4: Used Equipment -->
+    <div class="slide slide-4">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        
+        <h1 class="slide-title">Used Equipment</h1>
+        <p class="slide-desc">
+          High-quality refurbished and used drilling equipment at unmatched market prices. Each machine is carefully inspected, restored, and performance-tested by our skilled team to ensure operational readiness.
+        </p>
+        <button class="slide-btn" onclick="nextSlide()">
+          <span>Next</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slide 5: Services -->
+    <div class="slide slide-5">
+      <div class="slide-bg"></div>
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+       
+        <h1 class="slide-title">Services</h1>
+        <p class="slide-desc">
+          Specialized Drilling Consultation, Crew Deployment, and Machine Inspection Services designed to maximize performance, reduce downtime, and improve operational efficiency. With deep industry expertise and skilled manpower.
+        </p>
+        <a href="index.html" class="slide-btn" onclick="sessionStorage.setItem('viewedLanding', 'true')">
+          <span>Get Started</span>
+          <span class="btn-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation Arrows -->
+  <button class="nav-arrow left" id="prevBtn" onclick="prevSlide()">‹</button>
+  <button class="nav-arrow right" id="nextBtn" onclick="nextSlide()">›</button>
+
+  <!-- Slide Indicators -->
+  <div class="slide-indicators">
+    <div class="indicator active" onclick="goToSlide(0)"></div>
+    <div class="indicator" onclick="goToSlide(1)"></div>
+    <div class="indicator" onclick="goToSlide(2)"></div>
+    <div class="indicator" onclick="goToSlide(3)"></div>
+    <div class="indicator" onclick="goToSlide(4)"></div>
+  </div>
+
+</div>
+
+<script>
+// Mobile redirect - send mobile users directly to home.html
+if (window.innerWidth <= 768) {
+  window.location.href = 'home.html';
+}
+
+let currentSlide = 0;
+const totalSlides = 5;
+const slides = document.getElementById('slides');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const indicators = document.querySelectorAll('.indicator');
+const progressFill = document.getElementById('progressFill');
+const slideCounter = document.getElementById('currentSlideNum');
+
+function updateSlide() {
+  slides.style.transform = `translateX(-${currentSlide * 100}vw)`;
+  
+  indicators.forEach((ind, index) => {
+    ind.classList.toggle('active', index === currentSlide);
+  });
+
+  prevBtn.disabled = currentSlide === 0;
+  nextBtn.disabled = currentSlide === totalSlides - 1;
+  
+  const progress = ((currentSlide + 1) / totalSlides) * 100;
+  progressFill.style.width = progress + '%';
+  slideCounter.textContent = currentSlide + 1;
+}
+
+function nextSlide() {
+  if (currentSlide < totalSlides - 1) {
+    currentSlide++;
+    updateSlide();
+  }
+}
+
+function prevSlide() {
+  if (currentSlide > 0) {
+    currentSlide--;
+    updateSlide();
+  }
+}
+
+function goToSlide(index) {
+  currentSlide = index;
+  updateSlide();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
+
+updateSlide();
+</script>
+
+</body>
+</html>
