@@ -3371,5 +3371,9 @@ header .logo img {
   
   .footer-socials {
     justify-content: center !important;
+    flex-wrap: wrap !important;
+    max-width: 220px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
