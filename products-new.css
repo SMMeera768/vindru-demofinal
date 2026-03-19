@@ -671,3 +671,11 @@ td strong {
     margin-bottom: 0;
   }
 }
+
+@media (max-width: 600px) {
+  .category-overview p,
+  .drilling-rigs-inner p,
+  .header-text p {
+    text-align: left !important;
+  }
+}
